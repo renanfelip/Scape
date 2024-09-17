@@ -1,10 +1,6 @@
 const rollMusic = document.querySelector('.roll__musicas');
-const pesquisa = document.querySelector('#input__pesquisa');
 const player = document.querySelector('#cont__player');
-const contList = document.querySelector('#contList');
-const musics = document.querySelector('.inf__music__list');
-player.style.display = `none`
-contList.style.display = `none`
+player.style.display = 'none'
 
 async function getAccessToken() {
     const client_id = '3a217a12cc904774a6ffed1a410926c0';
@@ -38,158 +34,91 @@ async function fetchSpotifyData(query) {
       }
     });
     const data = await response.json();
-    const items = data.tracks.items
-    APIData(items)
-
+    const items = data.tracks.items;
+    dataAPI(items);
 }
 
-function APIData (items) {
-    let list = []
-    for(i = 0; i < 3; i++){
-      const ind = Math.floor(Math.random() * items.length);
-      criarMusic(items[ind]);
-      list.push(items[ind]);
-    }
-    listen(list);
-    for(i = 0; i < items.length; i++){
-      criarList(items[i]);
-    }
+function dataAPI (items) {
+  let setMusic = randomIndex(items, 3);
+  musics(setMusic);
 }
 
-window.addEventListener('load', () => {
-  radomizador();
-  search();
-});
-
-function radomizador () {
-  const caracteres = 'BhrYPXZILf0WeOap3CMqJmFtyuGQv61kRxVndDwAEg4sUo9NSTcjz27bKHi85l';
-  let result = '';
-  for(i = 0; i < 22; i++){
-    let random = Math.floor(Math.random() * caracteres.length);
-    result += caracteres[random];
+//randomizar músicas
+function randomIndex (items) {
+  let index = [];
+  for(i = 0; i < 3; i++){
+    let num = Math.floor(Math.random() * items.length);
+    index.push(items[num]);
   }
-  fetchSpotifyData(result);
+  return index
 }
 
-function criarMusic (para) {
-  rollMusic.innerHTML += `
-    <div class="musica">
-            <button class="musica__btn">
-                <img src="${para.album.images[1].url}"
-                alt=""
-                class="img__musica">
-            </button>
-            <div class="cont__inf">
-                <p class="nome__musica">${para.name}</p>
-                <p class="nome__cantor">${para.artists[0].name}</p>
-            </div>
+//criar músicas
+function musics (items) {
+  rollMusic.innerHTML = ``;
+  items.forEach(item => {
+    rollMusic.innerHTML += makeMusics(item);
+  });
+}
+
+function makeMusics (item) {
+  return `
+        <div class="musica">
+          <button>
+              <img src="${item.album.images[0].url}" alt="" class="img__musica">
+          </button>
+          <div class="cont__inf">
+              <p class="nome__musica">${item.album.artists[0].name}</p>
+              <p class="nome__cantor">${item.album.name}</p>
+          </div>
         </div>
+  `
+}
+
+//player
+function makePLayer () {
+  return `
+    <div id="player__music">
+        <img src="imgs/puma.jpeg" alt="musica">
+        <div id="inf__music__player">
+            <p id="nome__musica__player">lorem lorem</p>
+            <p id="nome__cantor__player">lorem</p>
+        </div>
+    </div>
+    <div id="cont__control">
+        <button id="anterior"><img src="imgs/icons/skip_previous.png" alt="Voltar"></button>
+        <button id="pausarPlay"><img src="imgs/icons/play_arrow.png" alt="Pausar"></button>
+        <button id="proximo"><img src="imgs/icons/skip_next.png" alt="Proximo"></button>
+        <button id="list__button"><img src="imgs/icons/list.png" alt="Próximas Músicas"></button>
     </div>
   `
 }
 
-function criarPLayer (para) {
-  player.innerHTML = `
-     <div id="player__music">
-            <img src="${para.album.images[1].url}" alt="musica">
-            <div id="inf__music__player">
-                <p id="nome__musica__player">${para.name}</p>
-                <p id="nome__cantor__player">${para.artists[0].name}</p>
-            </div>
-        </div>
-        <audio id="musica__audio" hidden controls>
-          <source src="${para.preview_url}" type="audio/mpeg">
-        </audio>
-        <div id="cont__control">
-            <button id="anterior"><img src="imgs/icons/skip_previous.png" alt="Voltar"></button>
-            <button id="pausarPlay"><img src="imgs/icons/play_arrow.png" alt="Pausar" id="pausarPlayImg"></button>
-            <button id="proximo"><img src="imgs/icons/skip_next.png" alt="Proximo"></button>
-            <button id="list__button"><img src="imgs/icons/list.png" alt="Próximas Músicas"></button
-        </div>
-     </div>
-  `
-  playMusic();
-}
-
-function criarList (para) {
-  musics.innerHTML += `
-           <div class="ListMusic">
-            <div class="inf__music__list">
-                <p class="nome__musica__list">${para.name}</p>
-                <p class="nome__cantor__list">${para.artists[0].name}</p>
-            </div>
-            <div class="tech">
-                <button><img src="imgs/icons/play_arrow.png" alt="tocar"></button>
-                <a href="${para.uri}"><img src="imgs/logos/Spotify_logos.png" alt="#"></a>
-            </div>
-            </div>
-        <audio class="musica__audio" hidden controls>
-          <source src="${para.preview_url}" type="audio/mpeg">
-        </audio>
-  `
-}
-
+//pesquisa
 function search () {
-  pesquisa.addEventListener('keydown', function(event) {
-      if(event.key === 'Enter'){
-        const pesquisaValue = pesquisa.value;
-        if(pesquisaValue === ''){
-          null
-        }else{
-          fetchSpotifyData(pesquisaValue);
-          contList.style.display = `none`;
-          musics.innerHTML = ``;
-          rollMusic.innerHTML = ``;
-          player.style.display = `none`//tentar encurtar isso
-        }
+  const inputSearch = document.querySelector('#input__pesquisa');
+  inputSearch.addEventListener('keydown', (eve) => {
+    if(eve.key === 'Enter'){//eve é apenas o evento
+      let valorInput = inputSearch.value
+      if(valorInput === ''){
+        return
+      }else fetchSpotifyData(valorInput);
     }
   });
 }
 
-
-function listen (para) {
-  const BTNmusicas = document.querySelectorAll('.musica__btn');
-  
-  BTNmusicas.forEach((BTN, i) => {//pega o botão separado e o indíce
-    BTN.addEventListener('click', () => {
-
-      player.innerHTML = ``
-      criarPLayer(para[i]);
-      player.style.display = `flex`;
-    });
-  })
+//musicas inicial
+function randomIniMusic () {
+  let idMusic = []
+  let caracteres = `5aBGFrQXzk8cTnpDVxvKPO12ZWtH0ifM4s7EYmL3CIq9SlJRhbNuojedAUgwy6`
+  for(i = 0; i < 22; i++){
+    let ind = Math.floor(Math.random() * caracteres.length);
+    idMusic += caracteres[ind];
+  }
+  fetchSpotifyData(idMusic);
 }
 
-function playMusic () {
-  const musicaAudio = document.querySelector('#musica__audio');
-  const pausarPlay = document.querySelector('#pausarPlay');
-  const pPImg = document.querySelector('#pausarPlayImg');
-  const listButton = document.querySelector('#list__button');
-  const closeList = document.querySelector('#close');
-  const next = document.querySelector('#proximo'); 
-
-  pausarPlay.addEventListener('click', () => {
-    if(pPImg.src.includes('imgs/icons/pause.png')){
-      pPImg.src = 'imgs/icons/play_arrow.png';
-      musicaAudio.pause();
-
-    }else{
-      pPImg.src = 'imgs/icons/pause.png';
-      musicaAudio.play();
-    }
-  });
-  listButton.addEventListener('click', () => {
-    contList.style.display = `block`
-  });
-  closeList.addEventListener('click', () => {
-    contList.style.display = `none`
-  });
-  next.addEventListener('click', () => {
-    nextMusic();
-  });
-}
-
-function nextMusic () {
-  console.log('oi');
-  
-}
+window.addEventListener('load', () => {
+  search();
+  randomIniMusic();
+});
