@@ -90,6 +90,7 @@ button{
         font-weight: 400;
         font-family: 'Roboto';
         overflow: hidden;
+        max-height: 70px;
     }
     & .nome__cantor{
         font-size: 1em;
@@ -113,7 +114,7 @@ button{
     width: 95%;
     box-shadow: 0px -7px 13px rgba(0, 0, 0, 0.418);
     justify-self: center;
-    max-height: 140px;
+    height: 105px;
     justify-content: space-evenly;
 }
 #player__music{
@@ -121,6 +122,7 @@ button{
 }
 #player__music img{
     width: 65px;
+    height: 80px;
     border-radius: 10px;
 }
 #inf__music__player{
@@ -138,7 +140,8 @@ button{
         font-size: 0.8em;
         font-family: 'Roboto';
         overflow: hidden;
-        max-width: 50px;
+        width: 50px;
+        height: 30px;
     }
 }
 #list__button{
@@ -207,8 +210,8 @@ button{
     border: 3px solid rgb(37, 37, 37);
     border-radius: 10px;
     & .inf__music__list{
+        max-width: 50px;
         overflow: hidden;
-        max-width: 80px;
         & .nome__musica__list{
             margin-bottom: 5px;
             font-family: 'Roboto';
@@ -223,6 +226,7 @@ button{
 }
 .tech{
     display: flex;
+    align-self: center;
     & button{
         width: 52px;
         height: 52px;
@@ -232,7 +236,6 @@ button{
         transform: scale(105%);
         transition: 0.1s;
     }
-
     & a{
         width: 42px;
         height: 42px;
