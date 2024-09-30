@@ -24,6 +24,7 @@
     }
     .roll__musicas{
         display: flex;
+        max-width: 700px;
     }
     .musica{
         margin: 0px 15px;

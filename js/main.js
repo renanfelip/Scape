@@ -46,13 +46,15 @@ function dataAPI (items) {
   musics(setMusic);
   for(i = 0 ; i < items.length; i++){
     makeList(items[i]);
+    // listenList(items[i]);
+    
   }
 }
 
 //randomizar músicas
 function randomIndex (items) {
   let index = [];
-  for(i = 0; i < 3; i++){
+  for(i = 0; i < 6; i++){
     let num = Math.floor(Math.random() * items.length);
     index.push(items[num]);
   }
@@ -65,7 +67,7 @@ function musics (items) {
   items.forEach(item => {
     rollMusic.innerHTML += makeMusics(item);    
   });
-  listenMusic(items);
+  tocarFaixa(items);
 }
 
 function makeMusics (item) {
@@ -91,7 +93,7 @@ function makeList (item) {
           <p class="nome__cantor__list">${item.album.artists[0].name}l</p>
     </div>
         <div class="tech">
-            <button hidden ><img src="imgs/icons/play_arrow.png" alt="tocar"></button>
+            <button class="tocar" ><img src="imgs/icons/play_arrow.png" alt="tocar"></button>
             <a href="${item.uri}"><img src="imgs/logos/Spotify_logos.png" alt="#"></a>
         </div>
     </div>
@@ -119,7 +121,7 @@ function makePLayer (item) {
   `  
 }
 
-function listenMusic (items) {
+function tocarFaixa (items) {
   const listenMusic = document.querySelectorAll('.listen__Music');
   listenMusic.forEach((music, ind) => {
     music.addEventListener('click', () => {
@@ -130,13 +132,23 @@ function listenMusic (items) {
   });
 }
 
+// function listenList (items) {
+//   const tocar = document.querySelector('.tocar');
+//   tocar.forEach((play,ind) => {
+//     play.addEventListener('click', () => {
+//       makePLayer(items[ind]);
+//       console.log(items[ind]);
+      
+//     });
+//   });
+// }
+
 function controlsPLayer () {
   const audio = document.querySelector('.audio');
   const pausarPlay = document.querySelector('#pausarPlay');
   const pausarPlayImg = document.querySelector('#pausarPlay img');
   const listButton = document.querySelector('#list__button');
   const close = document.querySelector('#close');
-  const next = document.querySelector('#proximo');
 
   pausarPlay.addEventListener('click', () => {
     if(pausarPlayImg.src.includes('play_arrow.png')){
