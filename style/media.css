@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@media (min-width: 768px) {
+    #cont__cabecalho{
+        padding: 20px 20px 25px 20px;
+        & h1{
+            font-size: 2.3em;
+        }
+        & input{
+            padding: 5px 12px;
+            font-size: 1.1em;
+        }
+    }
+    .section__musics{
+        margin: 20px 5px;
+        display: grid;
+        justify-content: center;
+        & h2{
+            font-size: 2.0em;
+            font-weight: 200;
+            margin-bottom: 15px;
+        }
+    }
+    .roll__musicas{
+        display: flex;
+        max-width: 700px;
+    }
+    .musica{
+        margin: 0px 15px;
+        & button > img{
+            width: 180px;
+        }
+    }
+    #cont__player{
+        padding: 15px 0px;
+        width: 650px;
+    }
+    .cont__inf{
+        width: 170px;
+
+        & .nome__musica{
+            font-size: 1.1em;
+            max-width: 80px;
+        }
+        & .nome__cantor{
+            font-size: 1.1em;
+            max-width: 60px;
+        }
+    }
+    #player__music img{
+        width: 80px;
+        border-radius: 10px;
+    }
+    #inf__music__player{
+        margin: 2px 7px 0px 10px;
+    
+        & #nome__musica__player{
+            max-width: 150px;
+            font-size: 1.1em;
+        }
+        & #nome__cantor__player{
+            font-size: 1em;
+            width: 150px;
+        }
+    }
+    #list__button{
+        margin: -9px 0px 0px 15px;
+        & img{
+            height: 60px;
+            width: 47px;
+        }
+    }
+    #cont__control > button{
+        width: 50px;
+        height: 50px;
+    }
+    #contList{
+        width: 65%;
+    }
+    #list_config{
+        & h2{
+            font-size: 1.6em;
+        }
+        #close{
+            width: 40px;
+            height: 40px;
+        }
+    }
+    .ListMusic{
+        & .inf__music__list{
+            max-width: 140px;
+            & .nome__musica__list{
+                margin-bottom: 8px;
+                font-size: 1.2em;
+            }
+            & .nome__cantor__list{
+                font-size: 1.1em;
+            }
+        }
+    }
+    .tech{
+        & button{
+            width: 55px;
+            height: 55px;
+        }
+    }   
+}
+
+@media (min-width: 1024px) {
+    #cont__cabecalho{
+        width: 80%;
+    }
+    #cont__musics{
+        width: 80%;
+    }
+    #contList{
+        width: 55%;
+    }
+}
