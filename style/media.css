@@ -34,6 +34,7 @@
     }
     #cont__player{
         padding: 15px 0px;
+        width: 650px;
     }
     .cont__inf{
         width: 170px;
@@ -112,9 +113,6 @@
     }
     #cont__musics{
         width: 80%;
-    }
-    #cont__player{
-        width: 55%;
     }
     #contList{
         width: 55%;

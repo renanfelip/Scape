@@ -129,7 +129,7 @@ button{
 }
 #player__music img{
     width: 65px;
-    height: 65px;
+    height: 75px;
     border-radius: 10px;
 }
 #inf__music__player{
@@ -189,7 +189,7 @@ button{
     width: 85%;
     justify-self: center;
     border-radius: 18px 18px 0px 0px;
-    margin-top: -50px;
+    margin: -50px 0px 100px 0px;
 }
 #list_config{
     display: flex;

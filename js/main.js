@@ -46,9 +46,8 @@ function dataAPI (items) {
   musics(setMusic);
   for(i = 0 ; i < items.length; i++){
     makeList(items[i]);
-    // listenList(items[i]);
-    
   }
+  listenList(items);
 }
 
 //randomizar músicas
@@ -118,7 +117,7 @@ function makePLayer (item) {
         <button hidden id="proximo"><img src="imgs/icons/skip_next.png" alt="Proximo"></button>
         <button id="list__button"><img src="imgs/icons/list.png" alt="Próximas Músicas"></button>
     </div>
-  `  
+  `
 }
 
 function tocarFaixa (items) {
@@ -132,16 +131,17 @@ function tocarFaixa (items) {
   });
 }
 
-// function listenList (items) {
-//   const tocar = document.querySelector('.tocar');
-//   tocar.forEach((play,ind) => {
-//     play.addEventListener('click', () => {
-//       makePLayer(items[ind]);
-//       console.log(items[ind]);
-      
-//     });
-//   });
-// }
+function listenList (items) {
+  const tocar = document.querySelectorAll('.tocar');
+  
+  tocar.forEach((play, ind) => {
+    play.addEventListener('click', () => {
+      player.style.display = "flex";
+      makePLayer(items[ind]);
+      controlsPLayer();
+    });
+  });
+}
 
 function controlsPLayer () {
   const audio = document.querySelector('.audio');
@@ -152,8 +152,12 @@ function controlsPLayer () {
 
   pausarPlay.addEventListener('click', () => {
     if(pausarPlayImg.src.includes('play_arrow.png')){
-      pausarPlayImg.src = './imgs/icons/pause.png';
-      audio.play();
+      if(audio.src.includes(null)){
+        alert('sources não encontrados')
+      }else{
+        pausarPlayImg.src = './imgs/icons/pause.png';
+        audio.play();
+      }
     }else{
       pausarPlayImg.src = './imgs/icons/play_arrow.png';
       audio.pause();
@@ -172,8 +176,9 @@ function search () {
   const inputSearch = document.querySelector('#input__pesquisa');
   inputSearch.addEventListener('keydown', (eve) => {
     if(eve.key === 'Enter'){//eve é apenas o evento
-      let valorInput = inputSearch.value
+      let valorInput = inputSearch.value;
       if(valorInput !== ''){
+        List.style.display = "none";
         listMusic.innerHTML = '';
         fetchFunction(valorInput);
       }else return
